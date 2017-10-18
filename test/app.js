@@ -40,6 +40,32 @@ app.get('/hello-gif', function(req, res) {
   res.render('hello-gif', {gifUrl: gifUrl});
 });
 
+app.get('/prefectures', function(req, res) {
+
+  var request = require('request');
+
+  var url = "";
+
+  var headers = {
+    'Content-Type': 'application/json',
+    'X-API-KEY': 'uIsUR6bTsSITfIn81rV0L8fKmNtTdk0p1u3oYyBD'
+  }
+
+  var options = {
+    method: 'GET',
+    url: "https://opendata.resas-portal.go.jp/api/v1/prefectures",
+    headers: headers,
+    json: true,
+  };
+
+  request(options, function(error, response, body) {
+    if(error) throw new Error(error);
+
+    res.render('prefectures', {result: body.result});
+  });
+
+});
+
 app.listen(3000, function() {
   console.log('TEST NODEJS');
 });
